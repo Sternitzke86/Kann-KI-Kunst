@@ -79,6 +79,13 @@ body {
   text-align: right;
 }
 
+/* Bilder in AI‑Antworten sollen groß dargestellt werden */
+.chat-container .ai img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 .input-area {
   display: flex;
   align-items: center;

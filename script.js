@@ -79,17 +79,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (warnIfFileProtocol()) {
       return;
     }
+    // Payload für die Bildgenerierung. DALL·E akzeptiert nur wenige Parameter:
+    // prompt – die Beschreibung, die in ein Bild umgesetzt werden soll
+    // n      – die Anzahl der Bilder (hier 1)
+    // size   – die Auflösung des Bildes ("1024x1024", "512x512", "256x256")
     const payload = {
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: prompt }
-      ],
-      max_tokens: 200,
-      temperature: 0.7
+      // Verwende das DALL·E 3‑Modell für die Bildgenerierung. Wenn dein
+      // Schlüssel keinen Zugriff auf dall-e-3 hat, musst du ggf. auf
+      // ein älteres Modell wie "image-alpha-001" zurückgreifen.
+      model: 'dall-e-3',
+      prompt: prompt,
+      n: 1,
+      size: '1024x1024',
+      quality: 'standard',
+      style: 'vivid',
+      response_format: 'url'
     };
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      // Anfrage an den Bildgenerierungs‑Endpunkt senden
+      const response = await fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,10 +119,22 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(errorMsg);
       }
       const data = await response.json();
-      const aiText = data.choices && data.choices[0].message && data.choices[0].message.content
-        ? data.choices[0].message.content.trim()
-        : 'Keine Antwort erhalten.';
-      addMessage(aiText, 'ai');
+      // Die API liefert ein Array von Bildinformationen im Feld "data"
+      const imageUrl = data.data && data.data[0] && data.data[0].url;
+      if (imageUrl) {
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = prompt;
+        img.style.maxWidth = '100%';
+        img.style.borderRadius = '8px';
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message', 'ai');
+        msgDiv.appendChild(img);
+        chatContainer.appendChild(msgDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      } else {
+        addMessage('Es wurde kein Bild zurückgegeben.', 'ai');
+      }
     } catch (error) {
       console.error(error);
       // Fange CORS‑ und Netzwerkfehler ab
