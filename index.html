@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt‑Battle – Pink</title>
+  <!--
+    Variante in Pink. Diese Datei ist im Wesentlichen identisch mit der gelben
+    Version, verwendet jedoch eine andere Hintergrundfarbe. Große Schrift und
+    schwarzer Rand orientieren sich am hochgeladenen Foto des Nutzers.
+  -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="apiKeyModal" class="modal">
+    <div class="modal-content">
+      <h2>OpenAI API‑Schlüssel</h2>
+      <p>
+        Bitte gib deinen persönlichen OpenAI API‑Schlüssel ein. Der Schlüssel wird
+        ausschließlich im lokalen Speicher deines Browsers gespeichert, damit du
+        ihn nicht jedes Mal erneut eingeben musst. Ohne gültigen Schlüssel können
+        keine Antworten generiert werden.
+      </p>
+      <input type="password" id="apiKeyInput" placeholder="sk‑..." />
+      <button id="saveApiKey">Speichern</button>
+    </div>
+  </div>
+  <h1 class="title">Prompt‑Battle:<br><span class="subtitle">Kann KI Kunst?</span></h1>
+  <div id="chatWrapper" class="chat-wrapper">
+    <div class="chat-container" id="chat"></div>
+    <div class="input-area">
+      <input type="text" id="prompt" placeholder="Deinen Prompt eingeben" />
+      <button id="sendBtn">Senden</button>
+    </div>
+  </div>
+  <footer>
+    <p>Diese Anwendung nutzt die OpenAI‑API und ist keine offizielle ChatGPT‑Oberfläche.</p>
+    <button id="changeApiKey" class="api-key-btn">API‑Schlüssel ändern</button>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
