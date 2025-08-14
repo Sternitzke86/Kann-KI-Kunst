@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prompt‑Battle – Gelb</title>
+  <title>Prompt‑Battle – Pink</title>
   <!--
     Single‑User‑Version der Prompt‑Battle‑Oberfläche.
     Diese Variante ist für Präsentationen gedacht: Großformatiger Text auf einem
@@ -47,8 +47,12 @@
   <div class="main-container">
     <div class="logo-bar">
   <img src="logo.png" alt="Digitales MV Logo" class="logo">
-  <img src="images/SMS_black.png" alt="SMS Logo" class="logo">
+  <!-- Verwende das korrekte PNG für das SMS‑Logo -->
+  <img src="SMS_black.png" alt="SMS Logo" class="logo">
 </div>
+
+    <!-- Ladebalken: erscheint während der Bildgenerierung -->
+    <div id="loadingBar" class="loading-bar" style="display:none;"></div>
     <!-- Eingabefeld für den neuen Prompt. Es steht direkt unter dem Logo,
          sodass es sofort ins Auge fällt. Durch Drücken der Enter‑Taste wird
          der Inhalt an die API gesendet. -->
@@ -69,10 +73,6 @@
     Drücken der Enter‑Taste oder den Speichern‑Button wird der Schlüssel im
     lokalen Speicher abgelegt.
   -->
-  <div id="apiKeyBar">
-    <input type="password" id="apiKeyBarInput" placeholder="OpenAI API‑Schlüssel eingeben …" />
-    <button id="saveApiKeyBar">Speichern</button>
-  </div>
   <script src="script.js"></script>
 </div>
 </body>
